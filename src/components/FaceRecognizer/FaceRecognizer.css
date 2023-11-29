@@ -1,0 +1,7 @@
+.bounding-box{
+    position: absolute;
+    /* top: , left: esto dinalai data/values ta .js file ma matra xa , so utai style={} vanera dini  */
+    /* top: 20px gives top margin of 20 px wrt parent, with relative to closest positioned parent ho, so parent div lai position : relative garai  */
+    cursor: pointer;
+    box-shadow: 0 0 0 3px #149df2 inset;
+}
