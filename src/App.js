@@ -64,7 +64,7 @@ import {
 const initial_state = {
   input: "",
       imageurl: "",
-      box: {},
+      boxes: [],
       route: "signin",   // default suruma route will be signin page
       isSignedIn: false,
       // coz eska values xuttai functionma calculate garinxa ani, uta facerecog ma props ko roopma ni pathauna parxa
@@ -96,26 +96,33 @@ class App extends Component{
 
   // relation between imagelinkform and facerecognition, ini components ma use huni functions  yehi define gar app.js ma methods ko roopma, send data child(form) to parent(app), then provide it to next child  as props, lifting up
   calculateFaceLocation = (response) => {
-    console.log(response)
-    const boundingbox = response.outputs[0].data.regions[0].region_info.bounding_box; // khasma ta jati ota face teti ota regions hunxa, aile lai we are focusing on only one face
-    console.log("boundingbox is ",boundingbox)
+    // console.log(response)
     const image = document.getElementById("inputimage")
     const width = Number(image.width)   // getattribute  , . matra garera ni properties access hudaraixan kya
     const height = Number(image.height)
-    return {
-      // bounding box vitraka values are percentages , everything starts from top for heights and from left for widths
-      // leftcol 22% -> 22% of totalwidth -> x pixels from the left ma xa, rightcol 40$ -> 40% of totalwidth -> y pixels from left , i.e width-y pixels from right ma xa
-      // auta div banauni ho face ma, tyo div ma position absolute garayera left: x , gives a left margin of x wrt parent diniho
-      leftCol: boundingbox.left_col * width ,
-      topRow: boundingbox.top_row * height, 
-      rightCol: width - (boundingbox.right_col * width),
-      bottomRow: height - (boundingbox.bottom_row * height)
+    // const boundingbox = response.outputs[0].data.regions[0].region_info.bounding_box; // khasma ta jati ota face teti ota regions hunxa, aile lai we are focusing on only one face
+    let bounding_boxes  = []
+    for(item of response.outputs[0].data.regions){
+      dataa = item.region_info.bounding_box;
+      box = {
+        // bounding box vitraka values are percentages , everything starts from top for heights and from left for widths
+        // leftcol 22% -> 22% of totalwidth -> x pixels from the left ma xa, rightcol 40$ -> 40% of totalwidth -> y pixels from left , i.e width-y pixels from right ma xa
+        // auta div banauni ho face ma, tyo div ma position absolute garayera left: x , gives a left margin of x wrt parent diniho
+        leftCol: boundingbox.left_col * width ,
+        topRow: boundingbox.top_row * height, 
+        rightCol: width - (boundingbox.right_col * width),
+        bottomRow: height - (boundingbox.bottom_row * height)
+      }
+      bounding_boxes.push(box)
     }
+    // console.log("boundingbox is ",boundingbox)
+
+    return bounding_boxes;
   }
 
-  displayFaceBox = (box) =>{
-    console.log(box)
-    this.setState({box: box})
+  displayFaceBox = (boxes) =>{
+    // console.log(box)
+    this.setState({boxes: boxes})
     // due to async nature of setstate, esko tala aru nalekham , setstate ko lagi matra xuttai function banako ramro
   }
 
@@ -205,7 +212,7 @@ class App extends Component{
 
   
   render(){
-    const {isSignedIn, imageurl, box, route, userProfile} = this.state;
+    const {isSignedIn, imageurl, boxes, route, userProfile} = this.state;
     // return(
     //   <div className='App' > 
     //     <Navigation routeChange={this.onRouteChange} isSignedIn={isSignedIn}/>
@@ -258,7 +265,7 @@ class App extends Component{
          <Logo />
          <Rank name={userProfile.name} entries={userProfile.entries} />
          <ImageLinkForm   onInputChange={this.onInputChange} onButtonClick={this.onButtonClick}/>
-         <FaceRecognizer  imageurl={imageurl} box={box}/>  
+         <FaceRecognizer  imageurl={imageurl} boxes={boxes}/>  
          {/* yei box anusar css add garni facema uta  */}
        </div>)
        :
