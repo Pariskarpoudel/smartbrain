@@ -1,7 +1,6 @@
 body {
   margin: 0;
   font-family: "Courier New", Courier, monospace;  
-  /* kasaiko browserma courier navaye monospace lagu hunxa, alternative ko roopma rakheko */
   background: linear-gradient(to right, rgb(255, 0, 221), rgb(4, 242, 226))
 }
 
@@ -14,4 +13,3 @@ code {
 button{
   cursor: pointer;
 }
-/* index.css ma apply gareko properties sab components ma ni apply hunxan css ko roopma  */

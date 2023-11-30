@@ -37,7 +37,7 @@ button{
     width: 45%;
 }
 @media only screen and (max-width: 1000px) {
-    /* Reduce button width to fit on smaller screens */
+    
     button {
       width: 60%;
     }
