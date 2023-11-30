@@ -102,9 +102,9 @@ class App extends Component{
     const height = Number(image.height)
     // const boundingbox = response.outputs[0].data.regions[0].region_info.bounding_box; // khasma ta jati ota face teti ota regions hunxa, aile lai we are focusing on only one face
     let bounding_boxes  = []
-    for(var item of response.outputs[0].data.regions){
-      dataa = item.region_info.bounding_box;
-      box = {
+    for(let item of response.outputs[0].data.regions){
+      let dataa = item.region_info.bounding_box;
+      let box = {
         // bounding box vitraka values are percentages , everything starts from top for heights and from left for widths
         // leftcol 22% -> 22% of totalwidth -> x pixels from the left ma xa, rightcol 40$ -> 40% of totalwidth -> y pixels from left , i.e width-y pixels from right ma xa
         // auta div banauni ho face ma, tyo div ma position absolute garayera left: x , gives a left margin of x wrt parent diniho
