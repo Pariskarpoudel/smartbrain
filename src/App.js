@@ -185,7 +185,7 @@ class App extends Component{
     })
     .then(response => response.json())   // mathillo .then() le return gareko chij goes to next .then() as argument
     .then(result => {
-      if(result.outputs[0]){
+      if(result.outputs[0].data.regions[0]){
         fetch("https://smartbrain-api-0bz1.onrender.com/image",{  // to increase entries by 1
           method: 'put',
           headers: {'Content-Type': 'application/json'},
