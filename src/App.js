@@ -150,7 +150,7 @@ class App extends Component{
 
   onRouteChange = async (route) => {
     // app.js laini hooks banako vae, sidhai yeha navigate garna hunthyo, farak farak thauma navigate garirakhna parthena, navigate(route)
-    this.setState({route: route})
+    await this.setState({route: route})
     // state change huda bittikai rerender hunxa
     if(route==="home"){
       await this.setState({isSignedIn: true});
