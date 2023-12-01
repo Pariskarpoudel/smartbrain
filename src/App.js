@@ -80,6 +80,10 @@ class App extends Component{
 
   constructor(){
     super()
+    sessionStorage.getItem('isSignedIn') 
+    ? 
+    this.state = JSON.parse(sessionStorage.getItem('user'))
+    :
     this.state = initial_state;
   }
 
@@ -91,7 +95,7 @@ class App extends Component{
   //   // mero server le pathako response ho, which is listening 3000 port, react is running on 3001 port , both are different computers
   //   .then((data)=>console.log(data)) 
   // }
- 
+  
 
 
   // relation between imagelinkform and facerecognition, ini components ma use huni functions  yehi define gar app.js ma methods ko roopma, send data child(form) to parent(app), then provide it to next child  as props, lifting up
@@ -144,15 +148,20 @@ class App extends Component{
   }
   // uta signin or register button click huda bittikai yo trigger hunxa
 
-  onRouteChange = (route) => {
+  onRouteChange = async (route) => {
     // app.js laini hooks banako vae, sidhai yeha navigate garna hunthyo, farak farak thauma navigate garirakhna parthena, navigate(route)
     this.setState({route: route})
     // state change huda bittikai rerender hunxa
     if(route==="home"){
-      this.setState({isSignedIn: true});
+      await this.setState({isSignedIn: true});
+      // refresh garda sab states feri empty, or initial state ma set hunxan, so signin pagema redirect vainxa
+      sessionStorage.setItem('user',this.state)
+      sessionStorage.setItem('isSignedIn', true)
     }
     else if(route==="signout"){
-      this.setState(initial_state)
+      await this.setState(initial_state)
+      sessionStorage.removeItem('user')
+      sessionStorage.removeItem('isSignedIn')
     }
     else{
       this.setState({isSignedIn: false})
