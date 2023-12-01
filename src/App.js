@@ -147,23 +147,29 @@ class App extends Component{
     })
   }
   // uta signin or register button click huda bittikai yo trigger hunxa
+  addSession = () => {
+    sessionStorage.setItem('user',JSON.stringify(this.state))
+    sessionStorage.setItem('isSignedIn', true)
+  }
 
-  onRouteChange = async (route) => {
+  removeSession = () => {
+    sessionStorage.removeItem('user')
+    sessionStorage.removeItem('isSignedIn')
+  }
+
+  onRouteChange = (route) => {
     // app.js laini hooks banako vae, sidhai yeha navigate garna hunthyo, farak farak thauma navigate garirakhna parthena, navigate(route)
-    await this.setState({route: route})
+    this.setState({route: route})
     // state change huda bittikai rerender hunxa
     if(route==="home"){
-      await this.setState({isSignedIn: true});
+     this.setState({isSignedIn: true});
       // refresh garda sab states feri empty, or initial state ma set hunxan, so signin pagema redirect vainxa
-      console.log(this.state)
-      sessionStorage.setItem('user',JSON.stringify(this.state))
-      
-      sessionStorage.setItem('isSignedIn', true)
+    this.addSession()
+
     }
     else if(route==="signout"){
-      await this.setState(initial_state)
-      sessionStorage.removeItem('user')
-      sessionStorage.removeItem('isSignedIn')
+       this.setState(initial_state)
+       this.removeSession()
     }
     else{
       this.setState({isSignedIn: false})
