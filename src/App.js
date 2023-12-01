@@ -155,7 +155,9 @@ class App extends Component{
     if(route==="home"){
       await this.setState({isSignedIn: true});
       // refresh garda sab states feri empty, or initial state ma set hunxan, so signin pagema redirect vainxa
+      console.log(this.state)
       sessionStorage.setItem('user',JSON.stringify(this.state))
+      
       sessionStorage.setItem('isSignedIn', true)
     }
     else if(route==="signout"){
