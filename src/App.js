@@ -162,14 +162,11 @@ class App extends Component{
     this.setState({route: route})
     // state change huda bittikai rerender hunxa
     if(route==="home"){
-     this.setState({isSignedIn: true});
+     this.setState({isSignedIn: true}, () => { this.addSession()});
       // refresh garda sab states feri empty, or initial state ma set hunxan, so signin pagema redirect vainxa
-    this.addSession()
-
     }
     else if(route==="signout"){
-       this.setState(initial_state)
-       this.removeSession()
+       this.setState(initial_state, () => {this.removeSession()})
     }
     else{
       this.setState({isSignedIn: false})
