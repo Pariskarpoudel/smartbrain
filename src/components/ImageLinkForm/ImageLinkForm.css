@@ -33,6 +33,7 @@ button{
       background-position: 0% 50%;
     }
   }
+
 .custombg{
     width: 45%;
 }
@@ -43,6 +44,17 @@ button{
     }
     .custombg{
         width: 70%;
+    }
+
+  }
+
+  @media only screen and (max-width: 500px) {
+    
+    button {
+      width: 60%;
+    }
+    .custombg{
+        width: 95%;
     }
 
   }
