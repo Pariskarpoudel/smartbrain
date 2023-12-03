@@ -58,3 +58,15 @@ button{
     }
 
   }
+
+  @media only screen and (max-width: 370px) {
+    
+    button {
+      width: 50%;
+      font-size: smaller;
+    }
+    .custombg{
+        width: 100%;
+    }
+    
+  }
